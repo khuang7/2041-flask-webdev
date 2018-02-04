@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+
+
+{% block body_contents %}
+
+
+{%for result in search_list%}
+
+
+<div class="container">
+	<div class="media">
+	  <div class="media-left media-middle">
+	    <a href="{{url_for('profile', userid = result['Z_ID'])}}"> 
+	      <img class="media-object" src="{{ url_for('static', filename = result['Z_ID'] + '/img.jpg') }}" alt="...">
+	    </a>
+	  </div>
+	  <div class="media-body">
+	    <h4 class="media-heading">{{ result['FULL_NAME'] }}</h4>
+	  </div>
+	</div>
+</div>
+{%endfor%}
+
+
+
+
+
+
+
+
+
+
+
+{% endblock %}

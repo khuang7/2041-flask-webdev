@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+
+
+{% block body_contents %}
+
+
+
+<h4> Hello and Welcome to UNSW Talk </h4>
+
+<br></br>
+<br></br>
+<br></br>
+<br></br>
+
+{%if message%}
+<h2>{{ message }}</h2>
+{%endif%}
+
+<div class="row">
+  <div class="col-sm-4"></div>
+  <div class="col-sm-4">
+  	
+ <form method = "POST" action = "{{url_for('login')}}">
+	  <div class="form-group">
+	    <label for="exampleInputEmail1">UNSW ZID</label>
+	    <input type="text" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter Z_ID" name="zid">
+	    <small id="emailHelp" class="form-text text-muted"> {{ error }}</small>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleInputPassword1">Password</label>
+	    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+	  </div>
+
+	  <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+	</form>	
+
+  </div>
+  <div class="col-sm-4"></div>
+</div>
+
+
+
+
+
+
+{% endblock %}
+
+
+
+
+
+	

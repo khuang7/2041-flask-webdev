@@ -1,0 +1,203 @@
+{% extends "base.html" %}
+
+{% block body_contents %}
+
+
+<!--This stylesheet should be moved to the head of the document -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+{%for profile in profile_info%}
+
+<div class="container">
+    <div class="row">
+        <div class=" col-lg-offset-3 col-lg-6">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                    <img class="img-circle img-responsive" src={{ url_for('static', filename = profile['Z_ID'] + '/img.jpg') }}>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="row">
+                                <div class="centered-text col-sm-offset-3 col-sm-6 col-md-offset-3 col-md-6 col-lg-offset-3 col-lg-6">
+                                    <div itemscope="" itemtype="http://schema.org/Person">
+                                        <h2> <span itemprop="name">
+
+                                        {% if profile_type == "you"%}
+                                        Welcome to your profile
+
+                                        {% else %}
+                                        {{profile['FULL_NAME']}} Profile Page
+
+                                        {%endif%}
+
+                                            </span></h2>
+                                        <p itemprop="jobTitle">{{profile['PROGRAM']}}</p>
+                                        <p><span itemprop="birthday">{{profile['BIRTHDAY']}}</span></p>
+                                        <p>
+                                            <i class="fa fa-map-marker"></i> <span itemprop="addressRegion">{{profile['HOME_SUB']}}</span>
+                                        </p>
+                                        <p itemprop="email"> <i class="fa fa-envelope"> </i> <a href="mailto:you@somedomain.com">{{profile['EMAIL']}}</a> </p>
+
+
+
+                                          {% if profile_type == "friend"%}
+                                        
+                                        <div class="container">
+                                        <a href="{{url_for('delete_friend', userid = profile['Z_ID'])}}" class="btn btn-info" role="button">Delete Friend</a>
+                                      </div>
+
+                                          {%endif%}
+
+                                          {% if profile_type == "not_friend"%}
+                                          <a href="{{url_for('add_friend', userid = profile['Z_ID'])}}" class="btn btn-info" role="button">Add Friend</a>
+                                          {%endif%}
+
+  
+ <br></br>                         
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+
+
+<div class="container">
+  <!-- Trigger the modal with a button -->
+  <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Friend List</button>
+
+  <!-- Modal -->
+  <div class="modal fade" id="myModal" role="dialog">
+    <div class="modal-dialog">
+    
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Friend List</h4>
+        </div>
+        <div class="modal-body">
+          <p>
+
+{%for friend in friend_list%}
+<div class="container">
+  <div class="media">
+    <div class="media-left media-middle">
+      <a href="{{url_for('profile', userid = friend['FRIEND_ID'])}}">
+
+
+        <img class="media-object" src="{{ url_for('static', filename = friend['FRIEND_ID'] + '/img.jpg') }}" alt="..." width="100" height="100">
+      </a>
+    </div>
+    <div class="media-body">
+      <h4 class="media-heading">{{ friend['FRIEND_NAME'] }}</h4>
+    </div>
+  </div>
+</div>
+{%endfor%}
+
+          </p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+      
+    </div>
+  </div>
+  
+</div>
+
+</body>
+</html>
+
+
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+{%endfor%}
+<br></br>
+<br></br>
+<br></br>
+
+
+
+<h3> Posts by you </h3>
+
+
+
+{%for post in posts%}
+
+<div class="container">
+  <div class="row">
+  <div class="span8">
+    <div class="row">
+      <div class="span8">
+        <h4><strong><a href="#">{{ post['Z_ID'] }}</a></strong></h4>
+      </div>
+    </div>
+
+
+    <div class="row">
+      <div class="span1">
+            <img src={{ url_for('static', filename = post['Z_ID'] + '/img.jpg') }} alt="" width="100" height="100" ALIGN=”left”>
+        </a>
+      </div>
+
+
+
+      <div class="span6">      
+        <p>
+          {{ post['MESSAGE'] }}
+        </p>
+      </div>
+    </div>
+    <div class="row">
+      <div class="span8">
+        <p></p>
+        <p>
+
+
+          <i class="icon-user"></i> by <a href="{{url_for('profile', userid = post['Z_ID'])}}">{{post['NAME']}}</a> 
+          | <i class="icon-calendar"></i> {{post['M_TIME']}}
+          | <i class="icon-comment"></i> <a href="{{url_for('comments', zid = post['Z_ID'], post_id = post['POST_ID'], orig_directory = post['Z_ID'])}}">Comments</a>
+
+
+
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
+<hr>
+</div>
+{%endfor%}
+
+
+
+
+
+{% endblock %}
